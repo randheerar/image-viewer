@@ -45,12 +45,7 @@ class Login extends Component{
             if (this.state.loginPassword === "randheer") {
                 this.setState({loggedIn: "true"});
                 sessionStorage.setItem("access-token", "8661035776.d0fcd39.39f63ab2f88d4f9c92b0862729ee2784");
-                this.props.history.push({
-                    pathname: '/home',
-                    loggedIn: "true",
-                    showSearchTab: "true",
-                    baseUrl: this.props.baseUrl
-                })
+                this.props.history.push({pathname : '/home', loggedIn : "true",showSearchTab :"true" ,baseUrl : this.props.baseUrl})
 
             }
             else if (this.state.loginPassword === "") {
@@ -81,7 +76,7 @@ class Login extends Component{
                 this.setState({incorrectUserNamePassword: "dispBlock"});
                 this.setState({loginPasswordRequired: "dispNone"});
             }
-            else if (this.state.username !== "" && this.state.loginPassword == "")  {
+            else if (this.state.username !== "" && this.state.loginPassword === "")  {
                 this.setState({usernameRequired: "dispNone"});
                 this.setState({incorrectUserNamePassword: "dispNone"});
                 this.setState({loginPasswordRequired: "dispBlock"});
@@ -119,7 +114,7 @@ class Login extends Component{
                             <span className="red">Incorrect username and/or password</span>
                         </FormHelperText>
                         <br /><br />
-                        <Button variant="contained" color="primary" onClick={() => this.loginClickHandler()}>LOGIN</Button>
+                        <Button variant="contained" color="primary" onClick={this.loginClickHandler}>LOGIN</Button>
                     </CardContent>
                 </Card>
             </div>
