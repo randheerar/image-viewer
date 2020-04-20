@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './Header.css';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
@@ -9,6 +9,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Link } from 'react-router-dom';
 
+
 const styles = (theme) => ({
 
     search: {
@@ -18,8 +19,8 @@ const styles = (theme) => ({
         '&:hover': {
             backgroundColor: '#c0c0c0',
         },
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
+        marginRight: theme.spacing(4),
+        marginTop: -7,
         width: '100%',
         [theme.breakpoints.up('sm')]: {
             marginLeft: theme.spacing(3),
@@ -49,7 +50,6 @@ const styles = (theme) => ({
         },
     },
     bg: {
-
         backgroundColor: '#b3b3b3 !important',
         color: 'black !important',
         padding: '10px',
@@ -57,10 +57,10 @@ const styles = (theme) => ({
         height:'90px'
     }
 
-
 });
 
-class Header extends Component {
+class Header extends Component{
+
     constructor(){
         super();
         this.state={
@@ -69,18 +69,15 @@ class Header extends Component {
             photo : null,
             anchorEl : null,
             searchInput : "",
-
-
-
         }
     }
 
     componentDidMount() {
-        // Get profile picture
         let data = null;
         let xhr = new XMLHttpRequest();
         let that = this;
 
+        // Retrieve profile picture
         if(this.props.loggedIn==="true"){
             xhr.addEventListener("readystatechange", function () {
                 if (this.readyState === 4) {
@@ -93,7 +90,7 @@ class Header extends Component {
             xhr.setRequestHeader("Cache-Control", "no-cache");
             xhr.send(data);
 
-            // Get posts
+            // Retrieve posts
             let postData = null;
             let xhrPosts = new XMLHttpRequest();
             xhrPosts.addEventListener("readystatechange", function () {
@@ -123,79 +120,88 @@ class Header extends Component {
     handleClose = () => {
         this.setState({anchorEl : null });
     };
-    render() {
+
+    render(){
         const { classes } = this.props;
         return(
-            <div className='global-header'>
-                <header className='logo-text'>Image Viewer</header>
+            <div>
+                <header className="global-header">
+                    <span className="logo-text">Image Viewer</span>
 
 
-                {this.props.loggedIn ==="true"?
-                    <div className="after-login">
-                        <IconButton style={{padding :'0'}} onClick={this.handleClick}>
 
-                            <img src={this.state.photo} alt=""
-                                 style={{width: 40, height: 40, borderRadius: 40/2}} />
-                        </IconButton>
+                    {this.props.loggedIn ==="true"?
+                        <div className="after-login">
+                            <IconButton style={{padding :'0'}} onClick={this.handleClick}>
+                                <img src={this.state.photo} alt=""
+                                     style={{width: 40, height: 40, borderRadius: 40/2, marginTop: -10}} />
+                            </IconButton>
 
-                        <Menu
-                            className="simple-menu"
-                            elevation={0}
-                            getContentAnchorEl={null}
-                            anchorEl={this.state.anchorEl}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'center',
-                            }}
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'center',
-                            }}
-                            keepMounted
-                            open={Boolean(this.state.anchorEl)}
-                            onClose={this.handleClose}>
-                            <div className={classes.bg}>
-                                {this.props.showSearchTab === "true" ?
-                                    <div> <MenuItem onClose={this.handleClose} onClick={this.profilePageHandler}>
-                                        <Link to={"/profile" } loggedIn = "true">
-                                            My Account
+                            <Menu
+                                className="simple-menu"
+                                elevation={0}
+                                getContentAnchorEl={null}
+                                anchorEl={this.state.anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'center',
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'center',
+                                }}
+
+                                keepMounted
+                                open={Boolean(this.state.anchorEl)}
+                                onClose={this.handleClose}>
+                                <div className={classes.bg}>
+                                    {this.props.showSearchTab === "true" ?
+                                        <div> <MenuItem onClose={this.handleClose} onClick={this.profilePageHandler}>
+                                            <Link to={"/profile" } loggedIn = "true">
+                                                My Account
+                                            </Link>
+                                        </MenuItem><hr/> </div>
+                                        :""}
+
+                                    <MenuItem onClose={this.handleClose}  onClick={this.LogoutHandler}>
+                                        <Link to={"/" } loggedIn = "false">
+                                            Logout
                                         </Link>
-                                    </MenuItem><hr/> </div>
-                                    :""}
+                                    </MenuItem>
+                                </div>
+                            </Menu>
 
-                                <MenuItem onClose={this.handleClose}  onClick={this.LogoutHandler}>
-                                    <Link to={"/" } loggedIn = "false">
-                                        Logout
-                                    </Link>
-                                </MenuItem>
-                            </div>
-                        </Menu>
-                    </div>
-                    :
-                    ""
-                }
 
-                {this.props.loggedIn === "true" && this.props.showSearchTab === "true" ?
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon/>
+
                         </div>
+                        :
+                        ""
 
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                            onChange={this.props.searchHandler}
-                        />
-                    </div>
-                    : ""
-                }
+                    }
+
+                    {this.props.loggedIn === "true" && this.props.showSearchTab === "true"
+                        ?
+                        <div className={classes.search}>
+                            <div className={classes.searchIcon}>
+                                <SearchIcon/>
+                            </div>
+
+                            <InputBase
+                                placeholder="Search…"
+                                classes={{
+                                    root: classes.inputRoot,
+                                    input: classes.inputInput,
+                                }}
+                                inputProps={{ 'aria-label': 'search' }}
+                                onChange={this.props.searchHandler}
+                            />
+                        </div>
+                        : ""
+                    }
+                </header>
             </div>
         )
     }
 }
 
-export default Header;
+export default withStyles(styles)(Header);

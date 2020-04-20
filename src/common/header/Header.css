@@ -1,10 +1,20 @@
 .global-header {
-    background: #263238;
-    height: 60px;
+    background-color: #263238;
+    height: 40px;
+    padding-top: 20px;
 }
-
 .logo-text {
     color: #fff;
-    padding: 18px 15px 15px 15px;
     font-size: 18px;
+    align-content: center;
+    padding-left: 10px;
+}
+
+.after-login {
+    float: right;
+    display: flex;
+}
+
+.greyed {
+    background-color: grey;
 }
