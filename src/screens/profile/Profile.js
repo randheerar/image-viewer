@@ -157,7 +157,7 @@ class Profile extends Component{
     }
 
     increaseLikesHandler = (id,index) => {
-        this.state.likedByUser[index]=true;
+        this.setState({likedByUser: true});
         this.forceUpdate();
         this.state.posts.map(post=>{
             if(post.id===id){
@@ -260,9 +260,9 @@ class Profile extends Component{
                                             <Typography variant="body2" color="textPrimary" component="p">
                                                 {this.state.post.caption.text.split('\n')[0]}
                                             </Typography>
-                                            <Typography className="tags" variant="body2" color="blue" component="p">
-                                                {this.state.post.tags.map(tag=>(
-                                                    <span> #{tag}</span>
+                                            <Typography className="tags" variant="body2"  component="p">
+                                                {this.state.post.tags.map((tag,index)=>(
+                                                    <span key={"tag"+this.state.post.id+index}> #{tag}</span>
                                                 ))
                                                 }
                                             </Typography>
@@ -270,7 +270,7 @@ class Profile extends Component{
                                             <div className="comment-container">
                                                 {this.state.comments[this.state.index] !== undefined && this.state.comments[this.state.index] !== null ?
                                                     this.state.comments[this.state.index].split(':').map(
-                                                        comment=>( <div>
+                                                        comment=>( <div key={this.state.post.id}>
                                                             <span style={{fontWeight:"bold"}}>{this.state.post.user.username} : </span>
                                                             <span>{comment}</span><br/>
                                                         </div>)

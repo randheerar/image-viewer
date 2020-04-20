@@ -16,10 +16,6 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
-
-
-
-
 const styles = theme => ({
     root: {
         maxWidth: 500,
@@ -48,7 +44,7 @@ class Home extends Component{
             posts : [],
             profile_picture : null,
             comments:[],
-            comment:"",
+            comment:null,
             search:"",
             isLiked:false,
             likedByUser:[],
@@ -62,14 +58,16 @@ class Home extends Component{
         let xhr = new XMLHttpRequest();
         let that = this;
 
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-                that.setState({
-                    profile_picture : JSON.parse(this.responseText).data.profile_picture
+        if(this.props.loggedIn ===  "true") {
 
-                });
-            }
-        });
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+                    that.setState({
+                        profile_picture: JSON.parse(this.responseText).data.profile_picture
+                    });
+                }
+            });
+        }
 
         xhr.open("GET", this.props.baseUrl+"?access_token="+sessionStorage.getItem("access-token"));
         xhr.setRequestHeader("Cache-Control", "no-cache");
@@ -175,9 +173,9 @@ class Home extends Component{
                                     <Typography variant="body2" color="textPrimary" component="p">
                                         {post.caption.text.split('\n')[0]}
                                     </Typography>
-                                    <Typography className="tags" variant="body2" color="blue" component="p">
-                                        {post.tags.map(tag=>(
-                                            <span> #{tag}</span>
+                                    <Typography className="tags" variant="body2" component="p">
+                                        {post.tags.map((tag,index)=>(
+                                            <span key={"tag"+post.id+index}> #{tag}</span>
                                         ))
 
                                         }
@@ -195,7 +193,7 @@ class Home extends Component{
                                     <div className="comment-container">
                                         {this.state.comments[index] !== undefined && this.state.comments[index] !== null ?
                                             this.state.comments[index].split(':').map(
-                                                comment=>( <div>
+                                                comment=>( <div key={post.id}>
                                                     <span style={{fontWeight:"bold"}}>{post.user.username} : </span>
                                                     <span>{comment}</span><br/>
                                                 </div>)
@@ -205,7 +203,7 @@ class Home extends Component{
                                         <FormControl >
                                             <div className ="comment-section">
                                                 <InputLabel htmlFor={"comment" + post.id}>Add a comment</InputLabel>
-                                                <Input id={"comment" + post.id}  type="text"  value={this.state.commentForPost[index]}
+                                                <Input key={"comment" + post.id}  type="text"  value={this.state.commentForPost[index]}
                                                        comment={this.state.comment} onChange={(e)=>{this.commentHandler(e,index)}}  />
                                                 <Button variant="contained" color="primary" onClick={() => this.addCommentHandler(index)}>
                                                     ADD

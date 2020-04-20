@@ -40,11 +40,17 @@ class Login extends Component{
     }
 
     loginClickHandler = () => {
+        //Constant - Stores the default user details.
+        const userDetails = {
+            username: 'upgrad',
+            password: 'upgrad',
+            accessToken: '8661035776.d0fcd39.39f63ab2f88d4f9c92b0862729ee2784'
+        };
 
-        if (this.state.username === "randheer") {
-            if (this.state.loginPassword === "randheer") {
+        if (this.state.username === userDetails.username) {
+            if (this.state.loginPassword === userDetails.password) {
                 this.setState({loggedin: "true"});
-                sessionStorage.setItem("access-token", "8661035776.d0fcd39.39f63ab2f88d4f9c92b0862729ee2784");
+                sessionStorage.setItem("access-token", userDetails.accessToken);
                 this.props.history.push({pathname : '/home', loggedin : "true",showSearchTab :"true" ,baseUrl : this.props.baseUrl})
 
             }
@@ -60,7 +66,7 @@ class Login extends Component{
             }
         }
 
-        else if (this.state.username !== "randheer") {
+        else if (this.state.username !== userDetails.username) {
             if (this.state.username === "" && this.state.loginPassword === "") {
                 this.setState({loginPasswordRequired: "dispBlock"});
                 this.setState({usernameRequired: "dispBlock"});
