@@ -127,9 +127,6 @@ class Header extends Component{
             <div>
                 <header className="global-header">
                     <span className="logo-text">Image Viewer</span>
-
-
-
                     {this.props.loggedin ==="true"?
                         <div className="after-login">
                             <IconButton style={{padding :'0'}} onClick={this.handleClick}>
