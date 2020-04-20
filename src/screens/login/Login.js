@@ -81,7 +81,7 @@ class Login extends Component{
                 this.setState({incorrectUserNamePassword: "dispBlock"});
                 this.setState({loginPasswordRequired: "dispNone"});
             }
-            else if (this.state.username !== "" && this.state.loginPassword == "")  {
+            else if (this.state.username !== "" && this.state.loginPassword === "")  {
                 this.setState({usernameRequired: "dispNone"});
                 this.setState({incorrectUserNamePassword: "dispNone"});
                 this.setState({loginPasswordRequired: "dispBlock"});
