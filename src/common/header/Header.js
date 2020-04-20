@@ -78,7 +78,7 @@ class Header extends Component{
         let that = this;
 
         // Retrieve profile picture
-        if(this.props.loggedIn==="true"){
+        if(this.props.loggedin==="true"){
             xhr.addEventListener("readystatechange", function () {
                 if (this.readyState === 4) {
                     that.setState({
@@ -130,7 +130,7 @@ class Header extends Component{
 
 
 
-                    {this.props.loggedIn ==="true"?
+                    {this.props.loggedin ==="true"?
                         <div className="after-login">
                             <IconButton style={{padding :'0'}} onClick={this.handleClick}>
                                 <img src={this.state.photo} alt=""
@@ -157,14 +157,14 @@ class Header extends Component{
                                 <div className={classes.bg}>
                                     {this.props.showSearchTab === "true" ?
                                         <div> <MenuItem onClose={this.handleClose} onClick={this.profilePageHandler}>
-                                            <Link to={"/profile" } loggedIn = "true">
+                                            <Link to={"/profile" } loggedin = "true">
                                                 My Account
                                             </Link>
                                         </MenuItem><hr/> </div>
                                         :""}
 
                                     <MenuItem onClose={this.handleClose}  onClick={this.LogoutHandler}>
-                                        <Link to={"/" } loggedIn = "false">
+                                        <Link to={"/" } loggedin = "false">
                                             Logout
                                         </Link>
                                     </MenuItem>
@@ -179,7 +179,7 @@ class Header extends Component{
 
                     }
 
-                    {this.props.loggedIn === "true" && this.props.showSearchTab === "true"
+                    {this.props.loggedin === "true" && this.props.showSearchTab === "true"
                         ?
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>

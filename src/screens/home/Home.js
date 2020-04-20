@@ -53,19 +53,14 @@ class Home extends Component{
             isLiked:false,
             likedByUser:[],
             commentForPost:[]
-
-
-
         }
-
     }
     componentDidMount() {
 
-        // Get profile picture
+        // Retrieve profile picture
         let data = null;
         let xhr = new XMLHttpRequest();
         let that = this;
-
 
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
@@ -80,11 +75,9 @@ class Home extends Component{
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.send(data);
 
-        // Get posts
+        // Retrieve posts
         let postData = null;
         let xhrPosts = new XMLHttpRequest();
-
-
 
         xhrPosts.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
@@ -97,18 +90,13 @@ class Home extends Component{
         xhrPosts.open("GET", this.props.baseUrl+"/media/recent?access_token="+sessionStorage.getItem("access-token"));
         xhrPosts.setRequestHeader("Cache-Control", "no-cache");
         xhrPosts.send(postData);
-
-
     }
 
     loadPost=(index)=>{
         this.state.likedByUser[index]=false;
         this.forceUpdate();
     }
-
     increaseLikesHandler = (id,index) => {
-
-
         this.state.likedByUser[index]=true;
         this.forceUpdate();
         this.state.posts.map(post=>{
@@ -117,7 +105,6 @@ class Home extends Component{
                 post.likes.count = n;
             }
         })
-
     }
 
     commentHandler = (event,index) =>{
@@ -125,6 +112,7 @@ class Home extends Component{
         this.state.commentForPost[index]=event.target.value;
         this.forceUpdate();
     }
+
     addCommentHandler =(index) =>{
         if(this.state.comment!==null && this.state.comment !== "")  {
             if(this.state.comments[index] === undefined)
@@ -135,7 +123,6 @@ class Home extends Component{
             this.setState({comment:''});
             this.state.commentForPost[index]="";
             this.forceUpdate();
-
         }
     }
 
@@ -143,7 +130,6 @@ class Home extends Component{
         e.preventDefault();
         this.setState({search :  e.target.value});
     }
-
 
     render(){
         const { classes } = this.props;
@@ -159,14 +145,10 @@ class Home extends Component{
         return(
             <div>
 
-                <Header loggedIn='true' showSearchTab="true" baseUrl={this.props.baseUrl}
+                <Header loggedin='true' showSearchTab="true" baseUrl={this.props.baseUrl}
                         searchHandler={this.searchHandler}/>
                 <div className="posts-flex-container">
-
-
                     {relevantPosts.map((post,index) => (
-
-
                         <div className="posts-card" key={post.id} onLoad={()=>this.loadPost(index)}>
                             <Card className={classes.root} id={"post" + post.id}>
                                 <CardHeader
@@ -176,16 +158,11 @@ class Home extends Component{
                                                  style={{width: 40, height: 40, borderRadius: 40, borderWidth: 'thick' ,borderColor:'black'} } />
                                         </IconButton>
                                     }
-
                                     title={post.user.username}
-
                                     subheader={ <Moment format="MM/DD/YYYY HH:mm:ss">
                                         {post.user.created_time}
                                     </Moment>
                                     }
-
-
-
                                 />
                                 <div className="image-container">
                                     <CardMedia
@@ -197,8 +174,6 @@ class Home extends Component{
                                 <CardContent>
                                     <Typography variant="body2" color="textPrimary" component="p">
                                         {post.caption.text.split('\n')[0]}
-
-
                                     </Typography>
                                     <Typography className="tags" variant="body2" color="blue" component="p">
                                         {post.tags.map(tag=>(
@@ -210,8 +185,6 @@ class Home extends Component{
                                     <br/>
                                     <div className="like-section" >
                                       <span onClick={() => this.increaseLikesHandler(post.id,index)}>
-
-
                                     {this.state.likedByUser[index] ?
                                         <FavoriteIcon className="fav"/>:<FavoriteBorderIcon />}
                                       </span>
@@ -228,8 +201,7 @@ class Home extends Component{
                                                 </div>)
                                             ) :""
                                         }
-
-                                        <br/><br/>
+                                        <br />
                                         <FormControl >
                                             <div className ="comment-section">
                                                 <InputLabel htmlFor={"comment" + post.id}>Add a comment</InputLabel>
@@ -240,11 +212,8 @@ class Home extends Component{
                                                 </Button>
                                             </div>
                                         </FormControl>
-
                                     </div>
-
                                 </CardContent>
-
                             </Card>
                         </div>
 

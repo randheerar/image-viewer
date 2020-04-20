@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Controller from '../src/Controller'
+import ImageViewController from './ImageViewController'
 
 ReactDOM.render(
-    <Controller/>,
+    <ImageViewController />,
     document.getElementById('root')
 );
