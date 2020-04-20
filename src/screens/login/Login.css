@@ -1,0 +1,16 @@
+.card-content{
+    padding: 50px;
+    width: 300px;
+}
+
+.dispNone {
+    display: none;
+}
+
+.dispBlock {
+    display: block;
+}
+
+.red {
+    color: red;
+}
