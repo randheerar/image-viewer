@@ -26,7 +26,7 @@ class Login extends Component{
             username: "",
             loginPasswordRequired: "dispNone",
             loginPassword: "",
-            loggedIn: sessionStorage.getItem("access-token") == null ? false : true,
+            loggedin: sessionStorage.getItem("access-token") == null ? false : true,
             incorrectUserNamePassword : "dispNone",
 
         }
@@ -43,9 +43,9 @@ class Login extends Component{
 
         if (this.state.username === "randheer") {
             if (this.state.loginPassword === "randheer") {
-                this.setState({loggedIn: "true"});
+                this.setState({loggedin: "true"});
                 sessionStorage.setItem("access-token", "8661035776.d0fcd39.39f63ab2f88d4f9c92b0862729ee2784");
-                this.props.history.push({pathname : '/home', loggedIn : "true",showSearchTab :"true" ,baseUrl : this.props.baseUrl})
+                this.props.history.push({pathname : '/home', loggedin : "true",showSearchTab :"true" ,baseUrl : this.props.baseUrl})
 
             }
             else if (this.state.loginPassword === "") {
